@@ -108,9 +108,9 @@ samtools fastq \
     ${ID}.unmapped.bam
 
 # Gzip and output to permanent storage
-gzip -c ${ID}.unmapped.r1.fastq > ${ID}.nonhuman.r1.fastq.gz ${OUTDIR}
-gzip -c ${ID}.unmapped.r2.fastq > ${ID}.nonhuman.r2.fastq.gz ${OUTDIR}
+gzip -c ${ID}.unmapped.r1.fastq > ${OUTDIR}/${ID}.nonhuman.r1.fastq.gz 
+gzip -c ${ID}.unmapped.r2.fastq > ${OUTDIR}/${ID}.nonhuman.r2.fastq.gz 
 
 END=$SECONDS
-ELAPSED=$(( end - start ))
+ELAPSED=$(( END - START ))
 echo "Completed in ${ELAPSED} seconds"
