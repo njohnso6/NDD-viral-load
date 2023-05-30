@@ -42,3 +42,5 @@ sbatch get-synapse-data.sh
 ```bash
 sbatch --array=1-639%5 src/filter_reads.sh
 ```
+
+Filtered reads output to `/data/CARD_AA/data/ROSMAP_sample_FASTQs/nonhuman/`
