@@ -24,7 +24,7 @@ module load synapseclient/2.7.0
 # Your Account
 # └─ Account Settings
 #    └─ Manage Personal Access Tokens
-#       └─ Create New Tooken
+#       └─ Create New Token
 
 # Authenticate synapse account via bash command line:
 synapse config
