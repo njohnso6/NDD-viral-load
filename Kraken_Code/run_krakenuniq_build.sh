@@ -1,0 +1,1 @@
+./krakenuniq_executable/krakenuniq-build --build --db viral_rna_refgene --jellyfish-bin /data/CARD_AA/users/johnsonnicl/ndd_virus/krakenuniq_executable/bin/jellyfish-install/bin/jellyfish --threads 36

@@ -1,0 +1,30 @@
+import glob
+
+
+# The directory for this sometimes changes
+file_dir = "/data/CARD_AA/data/2023_05_16_ROSMAP_sample_FASTQs/nonhuman/"
+#SAMPLES_R1 = ['data/CARD_AA/data/ROSMAP_sample_FASTQs/nonhuman/160_120423.nonhuman.r1.fastq.gz']
+SAMPLES_R1 = glob.glob(file_dir + "*r1.fastq.gz")
+SAMPLES = [sample.split('/')[6].split('.')[0] for sample in SAMPLES_R1]
+
+
+rule all:
+    input:
+        expand("/data/CARD_AA/users/johnsonnicl/ndd_virus/reports/viral_rna_output/{sample_name}.kreport", sample_name=SAMPLES)
+
+rule run_kraken_uniq:
+    input:
+        r1=file_dir + "{sample_name}.nonhuman.r1.fastq.gz",
+        r2=file_dir + "{sample_name}.nonhuman.r2.fastq.gz",
+    output:
+        overall="/data/CARD_AA/users/johnsonnicl/ndd_virus/viral_rna_output/{sample_name}.kraken",
+        report="/data/CARD_AA/users/johnsonnicl/ndd_virus/reports/viral_rna_output/{sample_name}.kreport",
+    threads: 12,
+    resources:
+        mem_mb=307200, disk_mb=10240, runtime=1440
+    shell:
+        """
+        module load gcc/7.2.0
+        export KRAKEN2_DB_PATH='/data/CARD_AA/user/johnsonnicl/ndd_virus/krakenuniq_db/'
+        /data/CARD_AA/users/johnsonnicl/ndd_virus/krakenuniq_installed/krakenuniq --db ./krakenuniq_db/ --preload --report {output.report} --threads={threads} --gzip-compressed --paired {input.r1} {input.r2}  > {output.overall} 2>&1
+        """
